@@ -11,11 +11,8 @@ app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-// app.use(express.static(path.join(__dirname, "frontend", "build")))
+app.use(express.static(path.join(__dirname, "public", "build")));
 
-// app.get("/", (req, res) => {
-//     res.sendFile(__dirname, "frontend", "build", "index.html")
-// });
 
 
 //Weather data based on cords
@@ -86,6 +83,11 @@ app.post("/weather", async (req, res) => {
             }
         }
     }
+});
+
+app.use((req,res,next)=>{
+    res.sendFile(path.resolve(__dirname,"public","index.html"));
+    next();
 })
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
